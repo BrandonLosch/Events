@@ -114,6 +114,7 @@ function buildDropDown(){
     }
 
     eventDD.appendChild(ddul);
+    displayStats(currentEvents);
 }
 
 
