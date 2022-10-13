@@ -1,0 +1,179 @@
+:root {
+    --bl-primary-color: #b8c1ec;
+    --bl-secondary-color: #232946;
+    --bl-dark-color: #121629;
+    --bl-light-color: #fffffe;
+    --bl-navbar-glow: #fffffeaf;
+}
+
+/*--------------------------------*/
+
+html,body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bl-primary-color);
+}
+
+.content {
+    flex: 1 0 auto;
+    margin-top: 5rem;
+}
+
+footer {
+    flex-shrink: 0;
+}
+
+/*---- Footer Override Starts -----*/
+.footer {
+    background: var(--bl-dark-color);
+    color: var(--bl-light-color);
+}
+
+.socialIcons {
+    color: var(--bl-primary-color);
+    font-size: 1.5rem;
+    padding-left: .3rem;
+}
+
+.socialIcons:hover {
+    color: var(--bl-light-color)
+}
+
+/*---- Footer Override ends -----*/
+
+/* Icons */
+.fab {
+    transition: 0.4s;
+  }
+  
+  .fas, .hover{
+    transition: 0.4s;
+  }
+  
+  .fab:hover {
+    color: var(--green);
+    -moz-transform: translate(0px, -5px);
+    -ms-transform: translate(0px, -5px);
+    -o-transform: translate(0px, -5px);
+    -webkit-transform: translate(0px, -5px);
+    transform: translate(0px, -5px)
+  }
+  
+  .fas:hover, .hover:hover {
+    color: var(--green);
+    -moz-transform: translate(0px, -5px);
+    -ms-transform: translate(0px, -5px);
+    -o-transform: translate(0px, -5px);
+    -webkit-transform: translate(0px, -5px);
+    transform: translate(0px, -5px)
+  }
+  
+  .icon {
+    font-size: 1.3em; 
+    color: #b0a388;
+  }
+  
+    .test {
+      background-color: var(--white);
+    }
+  
+    input:focus {
+      box-shadow: none !important;
+    }
+  
+    .btn:focus {
+      box-shadow: none !important;
+    }
+  
+
+.appLogo {
+    max-width: 600px;
+}
+
+
+/*---- Nav Bar Override Starts ---- */
+#mainNav {
+    background-color: var(--bl-dark-color);
+}
+
+#mainNav button {
+    border-color: var(--bl-primary-color);
+}
+
+.navbar-toggler {
+    color: var(--bl-navbar-glow);
+}
+
+.navbar-toggler-icon-bl {
+    color: var(--bl-primary-color);
+    font-size: 1.5rem;
+}
+
+/*---- Nav Bar Override Ends ---- */
+.checkList {
+    list-style-type: none;
+}
+
+.checkList>li i {
+    color: var(--bl-secondary-color);
+}
+
+
+.devIcons {
+    color: var(--bl-secondary-color);
+    font-size: 3rem;
+    padding-left: .3rem;
+}
+
+/*------- Button style override starts ---------*/
+.btn-outline-primary {
+    color: var(--bl-dark-color);
+    border-color: var(--bl-secondary-color) !important;
+  }
+
+  .btn-outline-primary:hover,
+.btn-outline-primary:active,
+.btn-outline-primary:focus {
+  border-color: var(--bl-highlight-color);
+  background-color: var(--bl-secondary-color);
+}
+
+.btn-primary {
+    color: var(--bl-light-color);
+    background-color: var(--bl-secondary-color);
+    border-color: var(--bl-secondary-color);
+    
+  }
+  
+  .btn-secondary {
+    color: var(--bl-light-color);
+    background-color: #55423d;
+    border-color: #55423d;
+    
+  }
+  
+  .btn-secondary:hover {
+    filter: brightness(1.1) !important;
+    background-color: #a15656;
+    border-color: #ffc0ad;
+  }
+  
+  .btn-primary:hover {
+    filter: brightness(1.1) !important;
+    background-color: var(--bl-primary-color);
+    border-color: var(--bl-highlight-color);
+  }
+  
+  .btn-primary:visited,
+  .btn-primary:active,
+  .btn-primary:focus {
+    filter: brightness(1.1) !important;
+    border-color: var(--bl-primary-color);
+  }
+  
+  
+  /*---------- button style override ends -------------*/
