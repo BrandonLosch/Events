@@ -8,14 +8,14 @@ const events = [{
     date: "06/01/2017",
   },
   {
-    event: "ComicCon",
+    event: "WizardCon",
     city: "New York",
     state: "New York",
     attendance: 250000,
     date: "06/01/2018",
   },
   {
-    event: "ComicCon",
+    event: "PAXEast",
     city: "New York",
     state: "New York",
     attendance: 257000,
@@ -29,35 +29,35 @@ const events = [{
     date: "06/01/2017",
   },
   {
-    event: "ComicCon",
+    event: "PAXWest",
     city: "San Diego",
     state: "California",
     attendance: 140000,
     date: "06/01/2018",
   },
   {
-    event: "ComicCon",
+    event: "PAXWest",
     city: "San Diego",
     state: "California",
     attendance: 150000,
     date: "06/01/2019",
   },
   {
-    event: "HeroesCon",
+    event: "DragonCon",
     city: "Charlotte",
     state: "North Carolina",
     attendance: 40000,
     date: "06/01/2017",
   },
   {
-    event: "HeroesCon",
+    event: "DragonCon",
     city: "Charlotte",
     state: "North Carolina",
     attendance: 45000,
     date: "06/01/2018",
   },
   {
-    event: "HeroesCon",
+    event: "DragonCon",
     city: "Charlotte",
     state: "North Carolina",
     attendance: 50000,
@@ -65,7 +65,7 @@ const events = [{
   },
 ];
 
-//builds a list of specific cities
+//builds a list of specific cities. entry point for the app
 function buildDropDown(){
     let eventDD = document.getElementById("eventDropDown");
     eventDD.innerHTML="";
@@ -73,7 +73,7 @@ function buildDropDown(){
     //grab the template from template tag
     let template=document.getElementById("cityDD-template")
 
-    let currentEvents=events;
+    let currentEvents= getEventData();
 
     //filer our array by distinct cities
     let citiesOnly=currentEvents.map((event)=>event.city);
@@ -114,14 +114,19 @@ function buildDropDown(){
     }
 
     eventDD.appendChild(ddul);
+
+    //display the stats for all events
     displayStats(currentEvents);
+    
+    //load the data in the grid
+    displayEventData();
 }
 
 
 function getEvents(element){
     let city=element.getAttribute("data-string");
 
-    let currentEvents = events;
+    let currentEvents = getEventData();
 
     let statsHeader=document.getElementById("statsHeader");
     statsHeader.innerHTML=`Stats For ${city} Events`;
@@ -181,8 +186,6 @@ function averageAttendance(events,totalAttendance){
     return averageAttendance;
 }
 
-
-
 function mostAttendance(events){
     let mostAttendance=0;
     mostAttendance=Math.max(...events.map(item=>item.attendance));
@@ -197,6 +200,85 @@ function leastAttendance(events){
     return leastAttendance;
 }
 
+//retreive data from local storage.
+function getEventData(){
+  let currentEvents = JSON.parse(localStorage.getItem("eventData"));
+
+  if(currentEvents==null){
+    currentEvents=events;
+    localStorage.setItem("eventData", JSON.stringify(currentEvents));
+  }
+
+  return currentEvents;
+}
+
+//displays the event data on bottom of the page in a grid
+function displayEventData(){
+
+  //get the template
+  const template=document.getElementById("eventData-template");
+
+  //get the location of that template & where it will be written
+  const eventBody=document.getElementById("eventBody");
+
+  eventBody.innerHTML="";
+
+  //access local storage for data
+  let currentEvents=getEventData();
+
+  for (let index = 0; index < currentEvents.length; index++) {
+    const eventRow=document.importNode(template.content, true);
+
+    const eventCols=eventRow.querySelectorAll("td");
+    eventCols[0].textContent=currentEvents[index].event;
+    eventCols[1].textContent=currentEvents[index].city;
+    eventCols[2].textContent=currentEvents[index].state;
+    eventCols[3].textContent=currentEvents[index].attendance;
+
+    //need to format the date for the page 
+    let eventDate=new Date(currentEvents[index].date).toLocaleDateString();
+    eventCols[4].textContent=eventDate;
+
+    eventBody.appendChild(eventRow);
+    
+  }
+
+}
+
+
+//saves a new event to the local storage from modal
+function saveEventData(){
+  let currentEvents= getEventData();
+
+  /* {
+    event: "ComicCon",
+    city: "New York",
+    state: "New York",
+    attendance: 240000,
+    date: "06/01/2017",
+  }, */
+  let newEventObj={};
+
+  newEventObj["event"]=document.getElementById("newEventName").value;
+  newEventObj["city"]=document.getElementById("newEventCity").value;
+
+  //grabbing a selection from document in JS
+  let stateSel=document.getElementById("newEventState");
+  newEventObj["state"]=stateSel.options[stateSel.selectedIndex].text;
+
+  newEventObj["attendance"]=parseInt(document.getElementById("newEventAttendance").value,10);
+
+  //grabbing a date from the document and then changing it and re formatting
+  let eventDate=document.getElementById("newEventDate").value;
+  let eventDate2=`${eventDate}00:00`;
+  newEventObj["date"]=new Date(eventDate2).toLocaleDateString();
+
+  currentEvents.push(newEventObj);
+
+  localStorage.setItem("eventData", JSON.stringify(currentEvents));
+
+  buildDropDown();
+}
 
 
 
